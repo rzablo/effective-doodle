@@ -1,12 +1,12 @@
 # Datenanalysen mit Pandas und Co
 
-Ich habe in den Weihnachtstagen ein wenig Zeit mit den Datenanalyse Werkzeugen Python, Pandas und co verbracht ;-).
+Ich habe in den Weihnachtstagen ein wenig Zeit mit den Datenanalyse Werkzeugen Python, Pandas und co verbracht ;-). Die dabei gelernten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet.
 
-In dieser kleinen Artikel Serie möchte ich euch zeigen, wie damit recht einfach Datenanalysen erstellt werden können. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
+In dieser kleinen Artikel Serie möchte ich euch zeigen, wie mit der Python-Bibliothek Pandas damit recht einfach Datenanalysen erstellt werden können. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
 
-Im ersten Teil geht es um das Einlesen und Vorbereiten der Daten. Im zweiten Teil folgen dann grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
+Im ersten Teil geht es um das Einlesen und Vorbereiten der Rohdaten, dem Data Wrangling. Im zweiten Teil folgen dann grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
 
-Als Entwicklungsumgebung kommen Jupyter-Notebooks zum Einsatz. Damit kann Python Code interaktiv ausgeführt werden und die Ergebnisse direkt angezeigt werden. (Verweis auf c´t Artikel )
+Als Entwicklungsumgebung kommen Jupyter-Notebooks zum Einsatz. Damit kann Python Code interaktiv ausgeführt werden und die Ergebnisse direkt angezeigt werden. Die Zeitschrift c´t hat in [Heft 5/2022](https://www.heise.de/select/ct/2022/5/2135510023934602155) mehrere Artikel zu Python veröffentlicht, die einen guten Einstieg ermöglichen. In der Zeitschrift [iX 3/2022](https://www.heise.de/select/ix/2022/3/2129209064878376414) gibt Wadim Wormsbacher einen Überblick zum Verarbeitung von Daten (_Data Wrangling_) mittels pandas.
 
 Der Quellcode für die Jupyter-Notebooks und Python-Module sowie die Beispieldaten finden sich in einem [Github-Repository](https://github.com/rzablo/effective-doodle.git).
 
@@ -20,7 +20,7 @@ Die Spalten ID und Zusammenfassung für das Beispiel berechnete Hashwerte. Die D
 
 Die zentrale Datenstruktur in Pandas ist ein DataFrame, eine Tabellenartigestruktur mit der sehr elegante Operationen möglich sind.
 
-Das Einlesen einer Excel-Datei ist sehr einfach.
+Ich bin immer noch begeistert davon wie einfach das Einlesen von Daten aus einer Excel-Datei funktioniert. Gerade Daten in Excel-Formaten begegnen mir im beruflichen Kontext sehr häufig. Daher war es mir bei meinen Arbeiten mit Pandas sehr wichtig, die Excel-Dateien möglichst unverändert verarbeiten zu können. 
 
 ```python
 DATA_FILE = "Demo.xlsx"
@@ -30,7 +30,7 @@ df_excel = pd.read_excel(DATA_FILE, sheet_name="Sheet1")
 
 ![Code Einlesen](Code_Exceldatei_lesen.png)
 
-Beim Einlesen versucht Pandas die Datentypen zu erraten. Meistens funktioniert das erstaunlich gut. Bei diesen Beispieldaten erkennt Pandas die Datumswerte und setzt für diese Spalten den Datentyp automatisch richtig.
+Beim Einlesen versucht Pandas die Datentypen zu erraten. Meistens funktioniert das erstaunlich gut. Bei unseren Beispieldaten erkennt Pandas die Datumswerte und setzt für diese Spalten den Datentyp automatisch richtig.
 
 Machmal muss man etwas nachhelfen. Dabei leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte dann so aussehen:
 
@@ -89,14 +89,26 @@ Im nächsten Teil zeige ich das Erstellen von Grafiken aus diesen Daten mittels 
 
 ### Ein paar Tricks
 
-Selektion von Spalten über Indizes eg. Numpy Range ... @TODO
+#### Dictionary für rename vorbelegen
 
 Das Dictionary für die `rename`-Funktion kann initial wie erzeugt werden:
 
 ```python
-a = df_t.columns
-d = dict(zip(a,a))
-d
+	a = df_t.columns
+	d = dict(zip(a,a))
+	d
 ```
 
 Die Ausgabe dieser Zeilen kann dann in eine Code-Zelle übernommen und so wie erforderlich angepasst werden.
+
+#### Spaltenselektion berechnen
+
+Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits Tippfaul bin habe ich einem Anwendungsfall folgende Lösung gefunden:
+
+```python
+(1)	cols = pd.Series(df_excel.columns.to_list())
+(2)	icols = cols[cols.str.contains("gesamt")].index
+(3)	df_t = df_excel.iloc[:-1, np.r_[0:9, icols]]
+```
+
+In Zeile 1 ermittle ich alle Spaltennamen als Liste. Daraus suche ich in Zeile 2 alle Spaltennamen, die den String "gesamt" enthalten. In Zeile 3 baue ich dann einen neuen DataFrame, der mit Ausnahme der letzen alle Zeilen (`:-1`) enthält und dann die ersten 10 Spalten (`0:9`) sowie alle in (2) gefundenen Spalten enthält. `np.r_` erzeugt dabei ein Array von einzelnen Indexwerten.
