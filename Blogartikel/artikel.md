@@ -70,11 +70,14 @@ Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenwe
         ].ID.count()
 ```
 
+![Code Calc CFD](Code_calc_cfd.png)
+
 Die Leadtime berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeitspaket  Bereit für die Entwicklung ist und dem Zeitpunkt zu dem das Arbeitspaket in Produktion gegangen ist.
 
 ```python
     dfx["Leadtime"] = (dfx["ProduktionReady"] - dfx["DevReady"]).dt.days / 7
 ```
+![Code Calc Leadtime](Code_calc_leadtime.png)
 
 Pandas bringt eine ganze Reihe von Statistik Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der describe-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
 
