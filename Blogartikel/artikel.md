@@ -55,7 +55,7 @@ Da wir mit den Datumswerten Berechnungen durchführen wollen, ersetze ich alle n
 
 ## Schritt 3: Berechnung der Metriken
 
-In meiner Artikelserie betrachte ich zwei typische Metriken in agilen Entwicklungsprojekten. Dies ist zum einen das Cumulative Flow Diagram und zum anderen die Leadtime bzw. Cycle-Time.
+In meiner Artikelserie betrachte ich zwei typische Metriken in agilen Entwicklungsprojekten. Dies ist zum einen das Cumulative Flow Diagram und zum anderen die [Lead Time bzw. Cycle Time](https://www.digite.com/agile/lead-time-cycle-time/).
 
 Für die Berechnung dieser Metriken habe ich jeweils eine Python Funktion geschrieben, die als Input-Parameter das hier vorbereitete DataFrame verwendet.
 
@@ -72,14 +72,14 @@ Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenwe
 
 ![Code Calc CFD](Code_calc_cfd.png)
 
-Die Leadtime berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeitspaket  Bereit für die Entwicklung ist und dem Zeitpunkt zu dem das Arbeitspaket in Produktion gegangen ist.
+Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeitspaket  Bereit für die Entwicklung ist und dem Zeitpunkt zu dem das Arbeitspaket in Produktion gegangen ist.
 
 ```python
     dfx["Leadtime"] = (dfx["ProduktionReady"] - dfx["DevReady"]).dt.days / 7
 ```
 ![Code Calc Leadtime](Code_calc_leadtime.png)
 
-Pandas bringt eine ganze Reihe von Statistik Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der describe-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
+Pandas bringt eine ganze Reihe von Statistik Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der _describe_-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
 
 ## Schritt 4: Grafiken
 
@@ -103,7 +103,7 @@ Die Ausgabe dieser Zeilen kann dann in eine Code-Zelle übernommen und so wie er
 
 #### Spaltenselektion berechnen
 
-Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits Tippfaul bin habe ich einem Anwendungsfall folgende Lösung gefunden:
+Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits Tippfaul bin, habe ich einem Anwendungsfall folgende Lösung gefunden:
 
 ```python
 (1)	cols = pd.Series(df_excel.columns.to_list())
