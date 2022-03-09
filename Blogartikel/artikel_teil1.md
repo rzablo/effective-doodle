@@ -2,7 +2,7 @@
 
 ![Aufmacher Foto](shutterstock_558334435.jpg)
 
-In dieser kleinen Artikelserie möchte ich euch zeigen, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
+In dieser kleinen Artikelserie zu Python: Datenanalysen mit Pandas und Co. zeige ich euch, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
 
 Im ersten Teil geht es um das Einlesen und Vorbereiten der Rohdaten, dem Data Wrangling. Im zweiten Teil folgen dann grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
 
