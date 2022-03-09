@@ -50,14 +50,7 @@ Für die Berechnung dieser Metriken habe ich jeweils eine Python Funktion geschr
 
 Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenweise wieviele Arbeitspakete im jeweiligen Status enthalten sind.
 
-```python
-   for ind in ddf.index:
-        theDate = pd.to_datetime(ddf["Date"][ind])
-   
-        ddf["1DevReady"][ind] = df.loc[
-            (df["DevReady"] <= theDate) & (df["DevWork"] > theDate)
-        ].ID.count()
-```
+![Code For-Schleife CFD](Code_calc_cfd_for.png)
 
 ![Code Calc CFD](Code_calc_cfd.png)
 
