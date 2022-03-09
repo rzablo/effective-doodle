@@ -20,8 +20,7 @@ Die Spalten ID und Zusammenfassung für das Beispiel berechnete Hashwerte. Die D
 
 Die zentrale Datenstruktur in Pandas ist ein DataFrame, eine Tabellenartigestruktur mit der sehr elegante Operationen möglich sind.
 
-Ich bin immer noch begeistert davon, wie einfach das Einlesen von Daten aus einer Excel-Datei funktioniert. Gerade Daten in Excel-Formaten begegnen mir im beruflichen Kontext sehr häufig. Daher war es mir bei meinen Arbeiten mit Pandas sehr wichtig, die Excel-Dateien möglichst unverändert verarbeiten zu können. 
-
+Ich bin immer noch begeistert davon, wie einfach das Einlesen von Daten aus einer Excel-Datei funktioniert. Gerade Daten in Excel-Formaten begegnen mir im beruflichen Kontext sehr häufig. Daher war es mir bei meinen Arbeiten mit Pandas sehr wichtig, die Excel-Dateien möglichst unverändert verarbeiten zu können.
 
 ![Code Einlesen](Code_Exceldatei_lesen.png)
 
@@ -52,13 +51,14 @@ Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenwe
 
 ![Code For-Schleife CFD](Code_calc_cfd_for.png)
 
+Das Ergebnis der Berechnungen sieht dann als Tabelle so aus:
+
 ![Code Calc CFD](Code_calc_cfd.png)
 
 Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeitspaket  bereit für die Entwicklung ist und dem Zeitpunkt zu dem das Arbeitspaket in Produktion gegangen ist.
 
-```python
-    dfx["Leadtime"] = (dfx["ProduktionReady"] - dfx["DevReady"]).dt.days / 7
-```
+![Formel Lead Time](Code_calc_leadtime_formula.png)
+
 ![Code Calc Leadtime](Code_calc_leadtime.png)
 
 Pandas bringt eine ganze Reihe von Statistik-Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der _describe_-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
@@ -75,9 +75,7 @@ Ich habe in diesem Artikel gezeigt, wie vorhandene Daten aus Excel-Dateien mit d
 
 Machmal muss man bei den Datumswerten etwas nachhelfen, damit Pandas diese richtig parsen kann. Eine mögliche Fehlerquelle ist die `locale`-Einstellung, die verwendet wird. Ein Datum in der Form 08.03.2022 wird dann gerne mal als 3. August interpretiert. Für die korrekte Interpretation von Datumswerten leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte dann so aussehen:
 
-```python
-df["Date"] = pd.to_datetime(df["Date"], format="%d.%m.%y")
-```
+![Code datetime](Code_snippet_date.png)
 
 Die Format Codes sind in der [Dokumentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) der Python Standard Bibliothek beschrieben.
 
@@ -85,11 +83,7 @@ Die Format Codes sind in der [Dokumentation](https://docs.python.org/3/library/d
 
 Das Dictionary für die `rename`-Funktion kann initial wie folgt erzeugt werden:
 
-```python
-	a = df_t.columns
-	d = dict(zip(a,a))
-	d
-```
+![Code rename Dictionary](Code_snippet_dict4rename.png)
 
 Die Ausgabe dieser Zeilen kann dann in eine Code-Zelle übernommen und so wie erforderlich angepasst werden.
 
@@ -97,10 +91,6 @@ Die Ausgabe dieser Zeilen kann dann in eine Code-Zelle übernommen und so wie er
 
 Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten-Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits tippfaul bin, habe ich einem Anwendungsfall folgende Lösung gefunden:
 
-```python
-(1)	cols = pd.Series(df_excel.columns.to_list())
-(2)	icols = cols[cols.str.contains("gesamt")].index
-(3)	df_t = df_excel.iloc[:-1, np.r_[0:9, icols]]
-```
+![Code Select Columns](Code_snippet_select_columns.png)
 
 In Zeile 1 ermittle ich alle Spaltennamen als Liste. Daraus suche ich in Zeile 2 alle Spaltennamen, die den String "gesamt" enthalten. In Zeile 3 baue ich dann einen neuen DataFrame, der mit Ausnahme der letzen alle Zeilen (`:-1`) enthält und dann die ersten 10 Spalten (`0:9`) sowie alle in (2) gefundenen Spalten enthält. `np.r_` erzeugt dabei ein Array von einzelnen Indexwerten.
