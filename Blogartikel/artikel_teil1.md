@@ -1,8 +1,8 @@
-# Datenanalysen mit Pandas und Co
+# Python: Datenanalysen mit Pandas und Co
 
-Ich habe in den Weihnachtstagen ein wenig Zeit mit den Datenanalyse-Werkzeugen Python, Pandas und Co verbracht ;-). Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet.
+![Aufmacher Foto](shutterstock_558334435.jpg)
 
-In dieser kleinen Artikelserie möchte ich euch zeigen, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
+In dieser kleinen Artikelserie möchte ich euch zeigen, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
 
 Im ersten Teil geht es um das Einlesen und Vorbereiten der Rohdaten, dem Data Wrangling. Im zweiten Teil folgen dann grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
 
@@ -22,21 +22,10 @@ Die zentrale Datenstruktur in Pandas ist ein DataFrame, eine Tabellenartigestruk
 
 Ich bin immer noch begeistert davon, wie einfach das Einlesen von Daten aus einer Excel-Datei funktioniert. Gerade Daten in Excel-Formaten begegnen mir im beruflichen Kontext sehr häufig. Daher war es mir bei meinen Arbeiten mit Pandas sehr wichtig, die Excel-Dateien möglichst unverändert verarbeiten zu können. 
 
-```python
-DATA_FILE = "Demo.xlsx"
-
-df_excel = pd.read_excel(DATA_FILE, sheet_name="Sheet1")
-```
 
 ![Code Einlesen](Code_Exceldatei_lesen.png)
 
-Beim Einlesen versucht Pandas die Datentypen zu erraten. Meistens funktioniert das erstaunlich gut. Bei unseren Beispieldaten erkennt Pandas die Datumswerte und setzt für diese Spalten den Datentyp automatisch richtig.
-
-Machmal muss man etwas nachhelfen. Dabei leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte dann so aussehen:
-
-```python
-wwf["Date"] = pd.to_datetime(wwf["Date"], format="%d.%m.%y")
-```
+Beim Einlesen versucht Pandas die Datentypen zu erraten. Meistens funktioniert das erstaunlich gut. Bei unseren Beispieldaten erkennt Pandas die Datumswerte und setzt für diese Spalten den Datentyp automatisch richtig. Am Ende dieses Artikels zeige ich im Abschnitt "Tips und Tricks" wie man nachhelfen kann, wenn das automatische Erkennen nicht richtig funktioniert.
 
 In unserem Beispiel nehme ich im ersten Schritt zwei Anpassungen an der Struktur der Daten vor.
 
@@ -81,13 +70,23 @@ Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeit
 
 Pandas bringt eine ganze Reihe von Statistik-Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der _describe_-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
 
-## Schritt 4: Grafiken
+## Ausblick auf Teil 2
 
-Im nächsten Teil zeige ich das Erstellen von Grafiken aus diesen Daten mittels des Python Frameworks Altair.
+Ich habe in diesem Artikel gezeigt, wie vorhandene Daten aus Excel-Dateien mit der Python-Bibliothek Pandas eingelesen und verarbeitet werden können. Zu einer Veranschaulichung gehören jedoch vor allem aussagekräftige Diagramme. Im nächsten Teil zeige ich das Erstellen von Grafiken aus diesen Daten mittels des Python Frameworks [Altair](https://altair-viz.github.io).
 
 * * * *
 
-### Ein paar Tricks
+### Ein paar Tips und Tricks
+
+#### Datumswerte richtig parsen
+
+Machmal muss man bei den Datumswerten etwas nachhelfen, damit Pandas diese richtig parsen kann. Eine mögliche Fehlerquelle ist die `locale`-Einstellung, die verwendet wird. Ein Datum in der Form 08.03.2022 wird dann gerne mal als 3. August interpretiert. Für die korrekte Interpretation von Datumswerten leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte dann so aussehen:
+
+```python
+df["Date"] = pd.to_datetime(df["Date"], format="%d.%m.%y")
+```
+
+Die Format Codes sind in der [Dokumentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) der Python Standard Bibliothek beschrieben.
 
 #### Dictionary für rename vorbelegen
 
