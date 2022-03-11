@@ -2,11 +2,13 @@
 
 ![Aufmacher Foto](shutterstock_558334435.jpg)
 
-In dieser kleinen Artikelserie zu Python: Datenanalysen mit Pandas und Co. zeige ich euch, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen mir Daten aus unserem Entwicklungsprozess, die ich anonymisiert und verändert als Datensatz zur Verfügung stelle.
+In dieser kleinen Artikelserie zu Python: Datenanalysen mit Pandas und Co. zeige ich euch, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen Daten aus unserem Entwicklungsprozess, die anonymisiert und verändert als Datensatz zur Verfügung gestellt werden.
 
-Im ersten Teil geht es um das Einlesen und Vorbereiten der Rohdaten, dem Data Wrangling. Im zweiten Teil folgen dann grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
+## Vom Data Wrangling zur Lead Time
 
-Als Entwicklungsumgebung kommen Jupyter-Notebooks zum Einsatz. Damit kann Python Code interaktiv ausgeführt werden und die Ergebnisse direkt angezeigt werden. Die Zeitschrift c´t hat in [Heft 5/2022](https://www.heise.de/select/ct/2022/5/2135510023934602155) mehrere Artikel zu Python veröffentlicht, die einen guten Einstieg ermöglichen. In der Zeitschrift [iX 3/2022](https://www.heise.de/select/ix/2022/3/2129209064878376414) gibt Wadim Wormsbacher einen Überblick zum Verarbeitung von Daten (_Data Wrangling_) mittels Pandas.
+Im ersten Teil geht es um das Einlesen und Vorbereiten der Rohdaten, dem Data Wrangling. Im zweiten Teil folgen grafische Auswertungen zu typischen agilen Metriken (_Cumulative Flow Diagram_ und _Lead Time_).
+
+Als Entwicklungsumgebung kommen Jupyter-Notebooks zum Einsatz. Damit kann Python Code interaktiv ausgeführt und die Ergebnisse direkt angezeigt werden. Die Zeitschrift c´t hat in [Heft 5/2022](https://www.heise.de/select/ct/2022/5/2135510023934602155) mehrere Artikel zu Python veröffentlicht, die einen guten Einstieg ermöglichen. In der Zeitschrift [iX 3/2022](https://www.heise.de/select/ix/2022/3/2129209064878376414) gibt Wadim Wormsbecher einen Überblick zum Verarbeitung von Daten (_Data Wrangling_) mittels Pandas.
 
 Der Quellcode für die Jupyter-Notebooks und Python-Module sowie die Beispieldaten finden sich in einem [Github-Repository](https://github.com/rzablo/effective-doodle.git).
 
@@ -16,9 +18,9 @@ Als Beispieldaten verwende ich eine Excel-Datei mit folgender Struktur:
 
 ![Struktur Exceldaten](Struktur_Exceldatei.png)
 
-Die Spalten ID und Zusammenfassung für das Beispiel berechnete Hashwerte. Die Datumsspalten geben die Termine an zu denen die Arbeitspakete jeweils in diesen Zustand eingetreten sind.
+Die Spalten ID und Zusammenfassung für das Beispiel berechnete Hashwerte. Die Datumsspalten geben die Termine an, zu denen die Arbeitspakete jeweils in diesen Zustand eingetreten sind.
 
-Die zentrale Datenstruktur in Pandas ist ein DataFrame, eine Tabellenartigestruktur mit der sehr elegante Operationen möglich sind.
+Die zentrale Datenstruktur in Pandas ist ein DataFrame, eine tabellenartige Struktur mit der sehr elegante Operationen möglich sind.
 
 Ich bin immer noch begeistert davon, wie einfach das Einlesen von Daten aus einer Excel-Datei funktioniert. Gerade Daten in Excel-Formaten begegnen mir im beruflichen Kontext sehr häufig. Daher war es mir bei meinen Arbeiten mit Pandas sehr wichtig, die Excel-Dateien möglichst unverändert verarbeiten zu können.
 
@@ -47,7 +49,7 @@ In meiner Artikelserie betrachte ich zwei typische Metriken in agilen Entwicklun
 
 Für die Berechnung dieser Metriken habe ich jeweils eine Python Funktion geschrieben, die als Input-Parameter das hier vorbereitete DataFrame verwendet.
 
-Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenweise wieviele Arbeitspakete im jeweiligen Status enthalten sind.
+Das CFD möchte ich auf Wochenbasis erstellen. Daher zähle ich jeweils wochenweise, wieviele Arbeitspakete im jeweiligen Status enthalten sind.
 
 ![Code For-Schleife CFD](Code_calc_cfd_for.png)
 
@@ -55,7 +57,7 @@ Das Ergebnis der Berechnungen sieht dann als Tabelle so aus:
 
 ![Code Calc CFD](Code_calc_cfd.png)
 
-Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeitspaket  bereit für die Entwicklung ist und dem Zeitpunkt zu dem das Arbeitspaket in Produktion gegangen ist.
+Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt, zu dem das Arbeitspaket  bereit für die Entwicklung ist und dem Zeitpunkt, zu dem das Arbeitspaket in Produktion gegangen ist.
 
 ![Formel Lead Time](Code_calc_leadtime_formula.png)
 
@@ -63,17 +65,17 @@ Die Lead Time berechne ich als Zeitraum zwischen dem Zeitpunkt zu dem das Arbeit
 
 Pandas bringt eine ganze Reihe von Statistik-Funktionen mit, die sich sehr einfach auf ein DataFrame anwenden lassen. Zur Veranschaulichung berechne ich mittels der _describe_-Funktion ein paar Standardwerte. Der Mittelwert spiegelt dabei unseren Entwicklungsprozess sehr gut wieder.
 
-## Ausblick auf Teil 2
+## Grafiken erstellen mit Python Altair: Ausblick auf Teil 2
 
 Ich habe in diesem Artikel gezeigt, wie vorhandene Daten aus Excel-Dateien mit der Python-Bibliothek Pandas eingelesen und verarbeitet werden können. Zu einer Veranschaulichung gehören jedoch vor allem aussagekräftige Diagramme. Im nächsten Teil zeige ich das Erstellen von Grafiken aus diesen Daten mittels des Python Frameworks [Altair](https://altair-viz.github.io).
 
 * * * *
 
-### Ein paar Tips und Tricks
+### Python: Tipps und Tricks zur Anwendung
 
 #### Datumswerte richtig parsen
 
-Machmal muss man bei den Datumswerten etwas nachhelfen, damit Pandas diese richtig parsen kann. Eine mögliche Fehlerquelle ist die `locale`-Einstellung, die verwendet wird. Ein Datum in der Form 08.03.2022 wird dann gerne mal als 3. August interpretiert. Für die korrekte Interpretation von Datumswerten leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte dann so aussehen:
+Machmal muss bei den Datumswerten etwas nachgeholfen werden, damit Pandas diese richtig parsen kann. Eine mögliche Fehlerquelle ist die `locale`-Einstellung, die verwendet wird. Ein Datum in der Form 08.03.2022 wird dann oftmals als 3. August interpretiert. Für die korrekte Interpretation von Datumswerten leistet die Funktion `pd.to_datetime()` wertvolle Dienste. Das könnte so aussehen:
 
 ![Code datetime](Code_snippet_date.png)
 
@@ -85,12 +87,19 @@ Das Dictionary für die `rename`-Funktion kann initial wie folgt erzeugt werden:
 
 ![Code rename Dictionary](Code_snippet_dict4rename.png)
 
-Die Ausgabe dieser Zeilen kann dann in eine Code-Zelle übernommen und so wie erforderlich angepasst werden.
+Die Ausgabe dieser Zeilen kann anschließend in eine Code-Zelle übernommen und so wie erforderlich angepasst werden.
 
 #### Spaltenselektion berechnen
 
-Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten-Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits tippfaul bin, habe ich einem Anwendungsfall folgende Lösung gefunden:
+Nicht immer ist es mit der einfachen Selektion von ein paar Spalten getan. Bei komplexeren Rohdaten-Tabellen kann die Selektion der gewünschten Tabellen durchaus aufwändiger sein. Da ich andererseits tippfaul bin, habe ich in einem Anwendungsfall folgende Lösung gefunden:
 
 ![Code Select Columns](Code_snippet_select_columns.png)
 
-In Zeile 1 ermittle ich alle Spaltennamen als Liste. Daraus suche ich in Zeile 2 alle Spaltennamen, die den String "gesamt" enthalten. In Zeile 3 baue ich dann einen neuen DataFrame, der mit Ausnahme der letzen alle Zeilen (`:-1`) enthält und dann die ersten 10 Spalten (`0:9`) sowie alle in (2) gefundenen Spalten enthält. `np.r_` erzeugt dabei ein Array von einzelnen Indexwerten.
+In Zeile 1 ermittle ich alle Spaltennamen als Liste. Daraus suche ich in Zeile 2 alle Spaltennamen, die den String "gesamt" enthalten. In Zeile 3 baue ich dann einen neuen DataFrame, der mit Ausnahme der letzten alle Zeilen (`:-1`) inne hat und dann die ersten 10 Spalten (`0:9`) sowie alle in (2) gefundenen Spalten enthält. `np.r_` erzeugt dabei ein Array von einzelnen Indexwerten.
+
+
+## Quellensammlung  
+- c´t [Heft 5/2022](https://www.heise.de/select/ct/2022/5/2135510023934602155)\: Titelstrecke zur Programmiersprache Python  
+- [Digité](https://www.digite.com/agile/lead-time-cycle-time/)\: Overview on Lead Time & Cycle Time Metrics  
+- [Pandas](https://pandas.pydata.org/) Dokumentation  
+- Wadim Wormsbecher\: Eingefangen – _Data Wrangling_ mittels Pandas. In\:  [iX 3/2022](https://www.heise.de/select/ix/2022/3/2129209064878376414)  
