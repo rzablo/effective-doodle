@@ -1,6 +1,6 @@
 # Python: Datenanalysen mit Pandas und Co
 
-![Aufmacher Foto](shutterstock_558334435.jpg)
+![Aufmacher Foto](shutterstock_215275282.jpg)
 
 In dieser kleinen Artikelserie zu Python: Datenanalysen mit Pandas und Co. zeige ich euch, wie mit der Python-Bibliothek Pandas recht einfach Datenanalysen erstellt werden können. Im Rahmen eines kleinen Hobby-Projektes habe ich mich mit den Bibliotheken Pandas und Altair beschäftigt. Die dabei erlangten Kenntnisse habe ich in den letzten Wochen immer mal wieder auf Daten im Unternehmen angewendet. Als Beispiel dienen Daten aus unserem Entwicklungsprozess, die anonymisiert und verändert als Datensatz zur Verfügung gestellt werden.
 
