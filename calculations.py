@@ -26,7 +26,7 @@ def calc_cfd(df):
             `6Production`: Anzahl Arbeispakete in diesem Status in dieser Woche
 
     """
-    ts = pd.date_range("2018-07-01", freq="W", periods=200)
+    ts = pd.date_range("2018-07-01", freq="W", periods=185)
     ddf = pd.DataFrame(ts)
     ddf.columns = ["Date"]  # , 'Count']
     ddf["1DevReady"] = 0
