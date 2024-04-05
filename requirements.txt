@@ -16,7 +16,7 @@ defusedxml==0.7.1
 entrypoints==0.4
 et-xmlfile==1.1.0
 executing==0.8.3
-fonttools==4.29.1
+fonttools==4.43.0
 ipykernel==6.9.1
 ipython==7.32.0
 ipython-genutils==0.2.0
